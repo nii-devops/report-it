@@ -206,9 +206,7 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
-
 # Python files
 gemini_api.py
 task.docx
 test_api.py
-

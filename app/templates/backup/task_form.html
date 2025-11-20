@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %} 
+
+{% block title %}
+    New Task
+{% endblock %} 
+
+{% block content %}
+
+<div class="container mt-4 row justify-content-center">
+    <div class="content-card col-md-6 col-lg-6 col-sm-12">
+        <h2>Create New Task</h2>
+        <hr>
+        <div>
+            {{ form.hidden_tag() }}
+            {{ form.date.label(class='form-label') }} {{ form.date(class='form-control mb-2') }}
+            {{ form.task_type.label(class='form-label') }} {{ form.task_type(class='form-control mb-2') }}
+            {{ form.description.label(class='form-label') }} {{ form.description(class='form-control mb-2', rows=4) }}
+            {{ form.remarks.label(class='form-label') }} {{ form.remarks(class='form-control mb-2', rows=2) }}
+            {{ form.is_complete(class='form-check-input  mb-2', id='is_complete_check') }} 
+            {{form.is_complete.label(class='form-check-label', for='is_complete_check') }}
+            {{ form.submit(class='btn btn-primary w-100 py-2') }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

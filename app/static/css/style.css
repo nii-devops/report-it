@@ -1,0 +1,232 @@
+/*
+ * ReportIT Custom Stylesheet
+ * Custom styles to enhance the Bootstrap look for a professional IT Report application.
+ */
+
+/* 1. Global Styles and Typography */
+body {
+    font-family: 'Inter', sans-serif; /* Use a modern, readable font */
+    background-color: #f8f9fa; /* Light gray background */
+    color: #343a40;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #004c99; /* Primary dark blue for headers */
+    font-weight: 600;
+}
+
+/* 2. Navigation Bar */
+.navbar {
+    background-color: #004c99 !important; /* Deep blue primary color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand, .nav-link {
+    font-weight: 500;
+    color: #ffffff !important; /* White text for navigation */
+}
+
+.nav-link:hover {
+    color: #ffc107 !important; /* Accent yellow on hover */
+}
+
+/* 3. Main Content Container & Cards */
+.container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.card {
+    border: none;
+    border-radius: 0.75rem; /* Rounded corners for a softer look */
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05); /* Soft shadow */
+}
+
+/* 4. Buttons */
+.btn-primary {
+    background-color: #007bff; /* Standard blue for primary actions */
+    border-color: #007bff;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    border-radius: 0.5rem;
+}
+
+.btn-success:hover {
+    background-color: #1e7e34;
+    border-color: #1c7430;
+}
+
+/* 5. Tables (Dashboard) */
+.table {
+    background-color: #fff;
+    border-radius: 0.75rem;
+    overflow: hidden; /* Ensures rounded corners apply to table background */
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.03);
+}
+
+.table thead th {
+    background-color: #e9ecef; /* Light gray header */
+    color: #495057;
+    font-weight: 600;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1; /* Subtle row hover effect */
+}
+
+/* 6. Form Styling */
+.form-control {
+    border-radius: 0.5rem;
+    border: 1px solid #ced4da;
+    box-shadow: none;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* 7. Homepage Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, #e0f7fa 0%, #f9f9f9 100%); /* Subtle gradient background */
+    border-radius: 1rem;
+    padding: 6rem 3rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 1rem 2rem rgba(0, 76, 153, 0.1);
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    color: #004c99;
+}
+
+.hero-section .lead {
+    color: #6c757d;
+}
+
+/* 8. Utility Classes */
+.content-card {
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+}
+
+
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #dc3545;
+    transition: 0.3s;
+    border-radius: 30px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+    background-color: #28a745;
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+    transform: translateX(30px);
+}
+
+.toggle-slider:hover {
+    opacity: 0.9;
+}
+
+
+
+/*
+.custom-switch .custom-control-label {
+    padding-left: 3rem;
+    cursor: pointer;
+}
+
+.custom-switch .custom-control-label::before {
+    position: absolute;
+    top: 0.25rem;
+    left: 0;
+    display: block;
+    width: 3rem;
+    height: 1.5rem;
+    background-color: #dc3545; 
+    border-radius: 1rem;
+    transition: background-color 0.3s ease;
+    content: "";
+}
+
+.custom-switch .custom-control-label::after {
+    position: absolute;
+    top: 0.4rem;
+    left: 0.15rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    content: "";
+}
+
+.custom-switch .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #28a745; 
+}
+
+.custom-switch .custom-control-input:checked ~ .custom-control-label::after {
+    transform: translateX(1.5rem);
+}
+
+.custom-switch .custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.slider-text {
+    margin-left: 4rem;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+*/
+
+

@@ -58,4 +58,4 @@ virt/
 ai_integration.py
 app/templates/backup/
 
-
+instance/

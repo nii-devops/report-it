@@ -1,232 +1,283 @@
-/*
- * ReportIT Custom Stylesheet
- * Custom styles to enhance the Bootstrap look for a professional IT Report application.
- */
+:root {
+    --primary: #0c0b4b;
+    --secondary: #3985e9;
+    --faint: #c4d9f3d0;
+    --tertiary: whitesmoke;
+    --cream:   #fdf6ec;
+    --warm:    #f5e6d0;
+    --rust:    #c4622d;
+    --rust-dk: #9e4a1e;
+    --ink:     #1c1410;
+    --muted:   #7a6a5a;
+    --border:  #e2d0bc;
+    --heading: #191094;
+}
 
-/* 1. Global Styles and Typography */
+
 body {
-    font-family: 'Inter', sans-serif; /* Use a modern, readable font */
-    background-color: #f8f9fa; /* Light gray background */
-    color: #343a40;
+  min-height: 100vh;
+  background-color: var(--tertiary);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
+  overflow-x: auto;   /* prevent horizontal scroll */
+  overflow-y: auto;     /* allow vertical scrolling */
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: #004c99; /* Primary dark blue for headers */
-    font-weight: 600;
+.navbar{
+    background-color: midnightblue;
 }
 
-/* 2. Navigation Bar */
-.navbar {
-    background-color: #004c99 !important; /* Deep blue primary color */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.hero{
+padding:80px 0;
+background:linear-gradient(to right,#f8f9fa,#ffffff);
 }
 
-.navbar-brand, .nav-link {
-    font-weight: 500;
-    color: #ffffff !important; /* White text for navigation */
+.hero-img{
+max-height:320px;
 }
 
-.nav-link:hover {
-    color: #ffc107 !important; /* Accent yellow on hover */
+.main-heading{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 3.0rem;
+  font-weight: 600;
+  color: var(--heading);
 }
 
-/* 3. Main Content Container & Cards */
-.container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+.card{
+  transition:0.2s;
 }
 
-.card {
-    border: none;
-    border-radius: 0.75rem; /* Rounded corners for a softer look */
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05); /* Soft shadow */
+.card:hover{
+  transform:translateY(-5px);
 }
 
-/* 4. Buttons */
-.btn-primary {
-    background-color: #007bff; /* Standard blue for primary actions */
-    border-color: #007bff;
-    border-radius: 0.5rem;
-    transition: background-color 0.3s, transform 0.1s;
+.form-fields-spacing .mb-3{
+    margin-bottom: 1.25rem !important;
 }
 
-.btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-    transform: translateY(-1px);
+form .mb-3 {
+    margin-bottom: 1.25rem;
 }
 
-.btn-success {
-    background-color: #28a745;
-    border-color: #28a745;
-    border-radius: 0.5rem;
+footer{
+    background-color: midnightblue;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+.profileusername{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: large;
+  font-style: italic;
+  color: rgb(16, 16, 136);
+}
+ 
+.panel-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  /*background: var(--faint);*/
+}
+ 
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  animation: slideUp .55s cubic-bezier(.22,1,.36,1) both;
+}
+ 
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+ 
+.login-card .eyebrow {
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: .6rem;
+}
+ 
+.login-card h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--ink);
+  margin-bottom: .4rem;
+}
+ 
+.login-card .subtitle {
+  color: var(--muted);
+  font-size: .9rem;
+  margin-bottom: 2.2rem;
 }
 
-.btn-success:hover {
-    background-color: #1e7e34;
-    border-color: #1c7430;
+/* Same header typography as .login-card, without the 420px width cap —
+   for full-width pages (e.g. the report editor) that reuse the eyebrow/
+   h2/subtitle pattern but need to size to their own grid column. */
+.page-header .eyebrow {
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: .6rem;
 }
 
-/* 5. Tables (Dashboard) */
-.table {
-    background-color: #fff;
-    border-radius: 0.75rem;
-    overflow: hidden; /* Ensures rounded corners apply to table background */
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.03);
+.page-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 2rem;
+  color: var(--ink);
+  margin-bottom: .4rem;
 }
 
-.table thead th {
-    background-color: #e9ecef; /* Light gray header */
-    color: #495057;
-    font-weight: 600;
-    border-bottom: 2px solid #dee2e6;
+.page-header .subtitle {
+  color: var(--muted);
+  font-size: .9rem;
+  margin-bottom: 2.2rem;
 }
-
-.table tbody tr:hover {
-    background-color: #f1f1f1; /* Subtle row hover effect */
+ 
+/* flash messages */
+.alert { border-radius: 10px; font-size: .88rem; border: none; }
+.alert-danger  { background: #fde8e2; color: #7c2c14; }
+.alert-success { background: #e2f5e9; color: #1a5c33; }
+ 
+/* form */
+.form-label {
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: .4rem;
 }
-
-/* 6. Form Styling */
+ 
 .form-control {
-    border-radius: 0.5rem;
-    border: 1px solid #ced4da;
-    box-shadow: none;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  font-size: .92rem;
+  padding: .7rem 1rem;
+  color: var(--ink);
+  transition: border-color .2s, box-shadow .2s;
 }
-
 .form-control:focus {
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  border-color: var(--rust);
+  box-shadow: 0 0 0 3px rgba(196,98,45,.12);
+  outline: none;
+}
+.form-control::placeholder { color: #c4b8aa; }
+ 
+.input-group .form-control { border-radius: 10px 0 0 10px; }
+.input-group-text {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-left: none;
+  border-radius: 0 10px 10px 0;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color .2s;
+}
+.input-group-text:hover { color: var(--rust); }
+.input-group:focus-within .form-control,
+.input-group:focus-within .input-group-text {
+  border-color: var(--rust);
+}
+.input-group:focus-within .input-group-text {
+  box-shadow: 0 0 0 3px rgba(196,98,45,.12);
+}
+ 
+.form-check-input:checked {
+  background-color: var(--rust);
+  border-color: var(--rust);
+}
+.form-check-label { font-size: .85rem; color: var(--muted); }
+ 
+.forgot-link {
+  font-size: .85rem;
+  color: var(--rust);
+  text-decoration: none;
+  font-weight: 500;
+}
+.forgot-link:hover { color: var(--rust-dk); text-decoration: underline; }
+ 
+.btn-login {
+  background: var(--rust);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: .95rem;
+  padding: .8rem;
+  letter-spacing: .02em;
+  transition: background .2s, transform .15s, box-shadow .2s;
+}
+.btn-login:hover {
+  background: var(--rust-dk);
+  box-shadow: 0 6px 20px rgba(196,98,45,.32);
+  transform: translateY(-1px);
+  color: #fff;
+}
+.btn-login:active { transform: translateY(0); }
+ 
+.divider {
+  display: flex; align-items: center; gap: 1rem;
+  color: var(--border);
+  font-size: .8rem;
+  margin: 1.6rem 0;
+}
+.divider::before, .divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+ 
+.btn-google {
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+  font-size: .9rem;
+  font-weight: 500;
+  padding: .75rem;
+  transition: border-color .2s, box-shadow .2s;
 }
 
-/* 7. Homepage Hero Section */
-.hero-section {
-    background: linear-gradient(135deg, #e0f7fa 0%, #f9f9f9 100%); /* Subtle gradient background */
-    border-radius: 1rem;
-    padding: 6rem 3rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 1rem 2rem rgba(0, 76, 153, 0.1);
+.btn-google:hover {
+  border-color: #aaa;
+  box-shadow: 0 3px 12px rgba(0,0,0,.08);
+}
+ 
+.signup-row {
+  text-align: center;
+  font-size: .87rem;
+  color: var(--muted);
+  margin-top: 1.8rem;
 }
 
-.hero-section h1 {
-    font-size: 3rem;
-    color: #004c99;
+.signup-row a {
+  color: var(--rust);
+  font-weight: 600;
+  text-decoration: none;
 }
-
-.hero-section .lead {
-    color: #6c757d;
+.signup-row a:hover { text-decoration: underline; }
+ 
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  body { flex-direction: column; overflow: auto; }
+  .panel-left {
+    flex: none;
+    padding: 2rem 1.75rem 2.5rem;
+    min-height: 220px;
+  }
+  .panel-hero h1 { font-size: 2rem; }
+  .panel-hero p  { display: none; }
+  .panel-left::before { width: 300px; height: 300px; }
+  .paw { display: none; }
+  .panel-right { padding: 2.5rem 1.5rem 3rem; }
 }
-
-/* 8. Utility Classes */
-.content-card {
-    padding: 2rem;
-    background-color: #fff;
-    border-radius: 0.75rem;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
-}
-
-
-
-.toggle-switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 30px;
-    cursor: pointer;
-}
-
-.toggle-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.toggle-slider {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #dc3545;
-    transition: 0.3s;
-    border-radius: 30px;
-}
-
-.toggle-slider:before {
-    position: absolute;
-    content: "";
-    height: 22px;
-    width: 22px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: 0.3s;
-    border-radius: 50%;
-}
-
-.toggle-switch input:checked + .toggle-slider {
-    background-color: #28a745;
-}
-
-.toggle-switch input:checked + .toggle-slider:before {
-    transform: translateX(30px);
-}
-
-.toggle-slider:hover {
-    opacity: 0.9;
-}
-
-
-
-/*
-.custom-switch .custom-control-label {
-    padding-left: 3rem;
-    cursor: pointer;
-}
-
-.custom-switch .custom-control-label::before {
-    position: absolute;
-    top: 0.25rem;
-    left: 0;
-    display: block;
-    width: 3rem;
-    height: 1.5rem;
-    background-color: #dc3545; 
-    border-radius: 1rem;
-    transition: background-color 0.3s ease;
-    content: "";
-}
-
-.custom-switch .custom-control-label::after {
-    position: absolute;
-    top: 0.4rem;
-    left: 0.15rem;
-    width: 1.2rem;
-    height: 1.2rem;
-    background-color: white;
-    border-radius: 50%;
-    transition: transform 0.3s ease;
-    content: "";
-}
-
-.custom-switch .custom-control-input:checked ~ .custom-control-label::before {
-    background-color: #28a745; 
-}
-
-.custom-switch .custom-control-input:checked ~ .custom-control-label::after {
-    transform: translateX(1.5rem);
-}
-
-.custom-switch .custom-control-input:focus ~ .custom-control-label::before {
-    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
-}
-
-.slider-text {
-    margin-left: 4rem;
-    font-size: 0.9rem;
-    transition: color 0.3s ease;
-}
-
-*/
 
 

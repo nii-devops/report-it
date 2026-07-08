@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Department Statistics Report</title>
+<style>
+    body { font-family: Helvetica, Arial, sans-serif; font-size: 11pt; color: #222; }
+    h1 { font-size: 20pt; color: #2c3e50; margin-bottom: 0; }
+    .subtitle { color: #666; margin-top: 4px; margin-bottom: 20px; }
+    .summary-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    .summary-table td {
+        width: 25%;
+        text-align: center;
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+    .summary-table .label { display: block; font-size: 9pt; color: #777; }
+    .summary-table .value { display: block; font-size: 16pt; font-weight: bold; margin-top: 4px; }
+    h2 { font-size: 14pt; color: #2c3e50; border-bottom: 1px solid #ddd; padding-bottom: 4px; margin-top: 28px; }
+    .chart-img { width: 480px; margin: 10px auto; display: block; }
+    table.data-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    table.data-table th, table.data-table td {
+        border: 1px solid #ddd;
+        padding: 6px 8px;
+        text-align: left;
+        font-size: 10pt;
+    }
+    table.data-table th { background-color: #f4f4f4; }
+    .no-data { color: #a15c00; background: #fff8e6; border: 1px solid #ffe0a3; padding: 12px; }
+</style>
+</head>
+<body>
+
+    <h1>Department Statistics Report</h1>
+    <p class="subtitle">
+        {{ department.name }} &middot; {{ start_date.strftime('%Y-%m-%d') }} to {{ end_date.strftime('%Y-%m-%d') }}
+    </p>
+
+    {% if not has_data %}
+
+    <p class="no-data">
+        No tasks were found for {{ department.name }} between
+        {{ start_date.strftime('%Y-%m-%d') }} and {{ end_date.strftime('%Y-%m-%d') }}.
+    </p>
+
+    {% else %}
+
+    <table class="summary-table">
+        <tr>
+            <td><span class="label">Total Tasks</span><span class="value">{{ total_tasks }}</span></td>
+            <td><span class="label">Completed</span><span class="value">{{ completed }}</span></td>
+            <td><span class="label">Pending</span><span class="value">{{ pending }}</span></td>
+            <td><span class="label">Completion Rate</span><span class="value">{{ completion_rate }}%</span></td>
+        </tr>
+    </table>
+
+    <h2>Tasks by Category</h2>
+    <img class="chart-img" alt="Bar chart of tasks by category" src="data:image/png;base64,{{ charts.category_chart }}" />
+
+    <h2>Completion Status</h2>
+    <img class="chart-img" alt="Pie chart of completed vs pending tasks" src="data:image/png;base64,{{ charts.completion_chart }}" />
+
+    <h2>Tasks by User</h2>
+    <img class="chart-img" alt="Bar chart of tasks by user" src="data:image/png;base64,{{ charts.user_chart }}" />
+
+    <h2>Tasks Over Time</h2>
+    <img class="chart-img" alt="Line chart of tasks over time" src="data:image/png;base64,{{ charts.timeline_chart }}" />
+
+    <h2>Category Breakdown</h2>
+    <table class="data-table">
+        <thead>
+            <tr><th>Category</th><th>Total</th><th>Completed</th><th>Rate</th></tr>
+        </thead>
+        <tbody>
+            {% for row in by_category %}
+            <tr>
+                <td>{{ row.category }}</td>
+                <td>{{ row.total }}</td>
+                <td>{{ row.completed }}</td>
+                <td>{{ row.completion_rate }}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>User Breakdown</h2>
+    <table class="data-table">
+        <thead>
+            <tr><th>User</th><th>Total</th><th>Completed</th><th>Rate</th></tr>
+        </thead>
+        <tbody>
+            {% for row in by_user %}
+            <tr>
+                <td>{{ row.user }}</td>
+                <td>{{ row.total }}</td>
+                <td>{{ row.completed }}</td>
+                <td>{{ row.completion_rate }}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% endif %}
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}Statistics - {{ department.name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+
+    <div class="row mb-4 align-items-center">
+        <div class="col">
+            <h1 class="display-6 fw-bold text-primary">
+                <i class="bi bi-graph-up"></i> Department Statistics
+            </h1>
+            <p class="text-muted mb-0">
+                <strong>{{ department.name }}</strong> &middot;
+                {{ start_date.strftime('%Y-%m-%d') }} to {{ end_date.strftime('%Y-%m-%d') }}
+            </p>
+        </div>
+        <div class="col-auto d-flex gap-2">
+            <a href="{{ url_for('main.generate_stats') }}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> New Query
+            </a>
+            {% if has_data %}
+            <a href="{{ url_for('main.download_stats', department_id=department.id, start=start_date.isoformat(), end=end_date.isoformat()) }}"
+               class="btn btn-primary">
+                <i class="bi bi-download"></i> Download PDF
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if not has_data %}
+    <div class="alert alert-warning">
+        No tasks were found for <strong>{{ department.name }}</strong> between
+        {{ start_date.strftime('%Y-%m-%d') }} and {{ end_date.strftime('%Y-%m-%d') }}.
+    </div>
+    {% else %}
+
+    <!-- Summary cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-6 col-lg-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h6 class="text-muted mb-2">Total Tasks</h6>
+                    <h2 class="mb-0 fw-bold">{{ total_tasks }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h6 class="text-muted mb-2">Completed</h6>
+                    <h2 class="mb-0 fw-bold text-success">{{ completed }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h6 class="text-muted mb-2">Pending</h6>
+                    <h2 class="mb-0 fw-bold text-warning">{{ pending }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <h6 class="text-muted mb-2">Completion Rate</h6>
+                    <h2 class="mb-0 fw-bold text-primary">{{ completion_rate }}%</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white py-3"><h5 class="mb-0 fw-bold">Tasks by Category</h5></div>
+                <div class="card-body text-center">
+                    <img src="data:image/png;base64,{{ charts.category_chart }}" class="img-fluid" alt="Tasks by category">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white py-3"><h5 class="mb-0 fw-bold">Completion Status</h5></div>
+                <div class="card-body text-center">
+                    <img src="data:image/png;base64,{{ charts.completion_chart }}" class="img-fluid" alt="Completion status">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white py-3"><h5 class="mb-0 fw-bold">Tasks by User</h5></div>
+                <div class="card-body text-center">
+                    <img src="data:image/png;base64,{{ charts.user_chart }}" class="img-fluid" alt="Tasks by user">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white py-3"><h5 class="mb-0 fw-bold">Tasks Over Time</h5></div>
+                <div class="card-body text-center">
+                    <img src="data:image/png;base64,{{ charts.timeline_chart }}" class="img-fluid" alt="Tasks over time">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category breakdown table -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white py-3"><h5 class="mb-0 fw-bold">Category Breakdown</h5></div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Total</th>
+                                    <th>Completed</th>
+                                    <th>Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in by_category %}
+                                <tr>
+                                    <td>{{ row.category }}</td>
+                                    <td>{{ row.total }}</td>
+                                    <td>{{ row.completed }}</td>
+                                    <td>{{ row.completion_rate }}%</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white py-3"><h5 class="mb-0 fw-bold">User Breakdown</h5></div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Total</th>
+                                    <th>Completed</th>
+                                    <th>Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in by_user %}
+                                <tr>
+                                    <td>{{ row.user }}</td>
+                                    <td>{{ row.total }}</td>
+                                    <td>{{ row.completed }}</td>
+                                    <td>{{ row.completion_rate }}%</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+</div>
+{% endblock %}

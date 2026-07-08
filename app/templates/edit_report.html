@@ -1,27 +1,30 @@
 {% extends "base.html" %}
+{% from 'bootstrap5/form.html' import render_form %}
 
 {% block title %}
-    {{ title }}
+    {{title}}
 {% endblock %}
 
-
-{% block head %}    
-    <!-- include libraries(jQuery, bootstrap) -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
-    
+{% block extra_css %}
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 {% endblock %}
+
 
 {% block content %}
+
 <div class="container-fluid py-4">
-    <div class="row mb-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+
+      <div class="page-header">
+        <p class="eyebrow">View/Edit Report</p>
+        <h2>{{ title }}</h2>
+        <p class="subtitle">Editing: <em>{{ report_filename }}</em></p>
+      </div>
+
+        <div class="row mb-4">
         <div class="col d-flex justify-content-between align-items-center flex-wrap gap-3">
-            <div>
-                <h3 class="display-6 fw-bold text-primary mb-1">
-                    <i class="bi bi-pencil-square"></i> {{ title }}
-                </h3>
-                <p class="text-muted mb-0">Editing: {{ report_filename }}</p>
-            </div>
+
             <div class="d-flex gap-2">
                 <a class="btn btn-outline-secondary"
                    href="{{ url_for('main.view_report', id=report_id) }}">
@@ -35,47 +38,21 @@
         </div>
     </div>
 
-    <div class="row" id="summernote">
-        <div class="col-12">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <form method="POST" action="{{ url_for('main.edit_report', id=report_id) }}">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="row w-100">
+        <form action="{{ url_for('main.edit_report', id=report_id) }}" method="post">
+            {{ form.report() }}
+            {{ ckeditor.load() }}
+            {{ ckeditor.config(name='report', height=800) }}
 
-                        <textarea id="editor" name="edited_content">
-{{ editable_content|safe }}
-                        </textarea>
+            <br>
+            {{ form.submit(class='btn btn-primary') }}
+        </form>
 
-                        <div class="d-flex justify-content-end gap-2 mt-4">
-                            <a href="{{ url_for('main.view_report', id=report_id) }}" class="btn btn-outline-secondary">
-                                Cancel
-                            </a>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-save"></i> Save Changes
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
     </div>
+
+    </div>
+  </div>
 </div>
-
-
-
-{% block scripts %}
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        $('#summernote').summernote();
-    });
-</script>
-
-{% endblock %}
-
 
 {% endblock %}
 

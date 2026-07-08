@@ -2,7 +2,7 @@
 {% from 'bootstrap5/form.html' import render_form %}
 
 {% block title %}
-    {% if is_edit %}Edit Task{% else %}New Task{% endif %}
+    {{ heading | default('Generate Report') }}
 {% endblock %}
 
 {% block extra_css %}
@@ -16,12 +16,11 @@
   <div class="panel-right">
     <div class="login-card">
 
-        <p class="eyebrow">Create Task</p>
-        <h2>{% if is_edit %}Edit Task{% else %}New Task{% endif %}</h2> 
-        <p class="subtitle">Fill the form below to record task details</p>
+        <p class="eyebrow">Report page</p>
+        <h2>{{ heading | default('Generate Report') }}</h2>
+        <p class="subtitle">{{ subtitle | default('Select parameters to generate a report') }}</p>
 
         <div class="mb-3">
-
             {{ render_form(form, extra_classes="mt-3") }}
         </div>
 
@@ -29,4 +28,3 @@
   </div>
 
 {% endblock %}
-

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block title %}Register | ReportIT{% endblock %}
+
+{% block content %}
+
+<div class="container py-5" style="max-width:500px">
+
+    <h3 class="mb-4 text-center">Register to use ReportIT</h3>
+
+    <div>
+        render_form(form)
+    </div>
+
+    <p class="text-center mt-3">
+    Already have an account?
+    <a href="{{ url_for('main.login') }}">Login</a>
+    </p>
+
+</div>
+
+{% endblock %}
